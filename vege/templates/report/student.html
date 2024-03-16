@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block start %}
+
+<a href="/contact/">Contact</a>|
+<a href="/about/">About</a>|
+<a href="/receipies/">Receipe</a>|
+<a href="/">Home</a>
+
+<div class="container mt-5">
+    <form class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <input class="form-control" name="search" placeholder="Search">
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success">Search</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Sl no.</th>
+                <th scope="col">Student_ID</th>
+                <th scope="col">Student_Name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Student_Email</th>
+                <th scope="col">Student_Age</th>
+                <th scope="col">Student_Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>
+                <a href="/see_marks/{{ student.student_id }}/" >{{ student.student_id }}</a>
+                    
+                </td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.department }}</td>
+                <td>{{ student.student_email }}</td>
+                <td>{{ student.student_age }}</td>
+                <td>{{ student.student_address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navbar">
+        <ul class="pagination">
+            {% if students.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first </a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ students.previous_page_number }}"> previous</a>
+            </li>
+            {% endif %}
+
+            <span class="current">
+                Page {{ students.number }} of {{ students.paginator.num_pages }}.
+            </span>
+
+            {% if students.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ students.next_page_number }}">next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ students.paginator.num_pages }}"> last &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</div>
+
+
+{% endblock %}

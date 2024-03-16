@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block start %}
+
+
+<div class="container mt-5">
+    <a href="/">Home</a>|
+    <a href="/contact/">Contact</a>|
+    <a href="/about/">About</a>|
+    <a href="/logout/">Logout</a><br>
+    Welcome! {{request.user}}
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Add Reciepe</h2>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Reciepe Name</label>
+            <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Reciepe Description</label>
+            <textarea name="description" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Reciepe Image</label>
+            <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-success">Add Reciepe</button>
+    </form>
+    <hr>
+    <div class="mt-5">
+        <div class="mx-auto col-6">
+            <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Search Food</label>
+                <input name="search" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        </div>
+    </div>
+    <!--{{ receipies }}-->
+    <br>
+    <hr>
+    {% for receipe in receipies %}
+
+    <h4>{{ receipe.name }}</h4>
+    <p>{{ receipe.description }}</p>
+    Image: <img src="/media/{{ receipe.image }}" style="height: 200px">
+    <a href="/delete_receipe/{{ receipe.id }}/" class="btn btn-danger" m-2>Delete</a>
+    <a href="/update_receipe/{{ receipe.id }}/" class="btn btn-info">Update</a>
+    <br>
+    <hr>
+
+    {% endfor %}
+
+</div>
+
+
+
+{% endblock %}

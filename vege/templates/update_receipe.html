@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block start %}
+
+
+<div class="container mt-5">
+    <a href="/">Home</a>|
+    <a href="/contact/">Contact</a>|
+    <a href="/about/">About</a>
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Update Reciepe</h2>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Reciepe Name</label>
+            <input name="name" value="{{ receipe.name }}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Reciepe Description</label>
+            <textarea name="description" class="form-control" required>{{ receipe.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Reciepe Image</label>
+            <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-success">Update Reciepe</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
